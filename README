@@ -1,0 +1,92 @@
+#==========
+# Abstract:
+#==========
+
+Title:
+  Continuous Wavelet Dynamic Time Warping for DNA sequence alignment
+
+
+Author:
+  Renmin Han,
+  Yu Li,
+  Sheng Wang,
+  Xin Gao
+
+
+Contact email:
+  realbigws@gmail.com
+  xin.gao@kaust.edu.sa
+
+
+#=========
+# Install:
+#=========
+
+./install.sh
+
+
+#=======
+# Usage:
+#=======
+
+#---- type ----#
+./cwDTW_align -h
+
+
+#---- usage ---#
+----------- cwDTW_align ----------
+version v0.03 (NOV 4 2017)
+-------------------------------------------------------------
+required:
+[-i DNA SEQUENCE 1][-p DNA SEQUENCE 2][-o OUTPUT]
+optional:
+([-r RADIUS])([-l LEVEL])([-s SCALE])
+-------------------------------------------------------------
+**** required: ******
+DNA SEQUENCE 1: (reference) sequence, such as ATCG...;
+DNA SEQUENCE 2: (nanopore) base-called sequence;
+OUTPUT:   DNA sequence alignment; if not specified, then no output be generated;
+**** key parameters: ******
+RADIUS:   warp search radius (default 50);
+LEVEL:    sampling level in continous wavelet (default 3);
+SCALE:    base scale in continous wavelet (default sqrt(2));
+
+
+#=========
+# Example:
+#=========
+
+#---- align two DNA sequences ------#
+./cwDTW_align -i example/00ea7f1f-662d-4c1b-8ce1-b5d3982c7331.original_fasta -p example/00ea7f1f-662d-4c1b-8ce1-b5d3982c7331.basecall_fasta
+
+
+
+#===============
+# Output format:
+#===============
+
+    1         2           3          4     5     6          7        8                9                     10                    11                     12
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<1st_DNA> <2nd_DNA> -> 10901.60 -> 11576 11912 11904 -> 0.971793 0.972446 -> 11576/12041(0.961382) | 198/12041(0.016444) -> 267/12041(0.022174) | 231/12041(0.019184)
+
+
+---------
+[Legend]:
+---------
+the 1st column is the name of the first input DNA sequence,
+the 2nd column is the name of the second input DNA sequence,
+the 3rd column shows the alignment score,
+
+the 4th column shows the identical matches in the alignment,
+the 5th column shows the length of the first input DNA sequence,
+the 6th column shows the length of the second input DNA sequence,
+
+the 7th column indicates the SeqID_1 with respect to the first sequence length,
+the 8th column indicates the SeqID_2 with respect to the second sequence length,
+
+the 9th column displays the SeqID with respect to the length of alignment,
+the 10th column displays the mismatches with respect to the length of alignment,
+the 11th column displays the all_gaps (including gap_open and gap_extend) with respect to the length of alignment,
+the 12th column displays the gap_open with respect to the length of alignment.
+
+
