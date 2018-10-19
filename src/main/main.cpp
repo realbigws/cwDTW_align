@@ -127,12 +127,12 @@ void Genomes2SignalSequence(const std::vector<char> &genomes,
 //--------------- continuous wavelet transform (CWT) analysis -----------------//
 /** @scale0: level0 pyramind scale;  @dscale: scale_i = scale0*(2^{i*dsacle} ); @npyr: total number of pyramind*/
 void CWTAnalysis(const std::vector<double>& raw, std::vector<std::vector<double> >& output, 
-	double scale0, double dscale, int npyr)
+	double scale0, double dscale, long npyr)
 {
 	const double* sigs = &raw[0];		//sst_nino3.dat
 	cwt_object wt;
 
-	size_t N = raw.size();
+	long N = raw.size();
 	double dt = 1;//2;		//sample rate	>  maybe we should use 2?
 
 	wt = cwt_init("dog", 2.0, N, dt, npyr);	//"morlet", "dog", "paul"
@@ -140,12 +140,11 @@ void CWTAnalysis(const std::vector<double>& raw, std::vector<std::vector<double>
 	cwt(wt, sigs);
 
 	output.resize(npyr);
-	for(size_t k = npyr; k--;){
-		int idx = npyr-k-1;
-		
+	for(long k = npyr; k--;){
+		long idx = npyr-k-1;
 		output[idx].resize(raw.size());
-		size_t offset = k*raw.size();
-		for(size_t i = 0; i < output[idx].size(); i++){
+		long offset = k*raw.size();
+		for(long i = 0; i < output[idx].size(); i++){
 			output[idx][i] = wt->output[i+offset].re;
 		}
 	}
@@ -163,6 +162,7 @@ void BoundGeneration(std::vector<std::pair<long,long> >& cosali,
 vector<pair<long,long> > cosali_=cosali;
 if(mode==1) //-> use partial-diagonol alignment
 {
+
 	//-------- generate partial-diagonol alignment -------//
 	vector<pair<long,long> > cosali2;
 	cosali2.push_back(cosali[0]);
@@ -235,7 +235,6 @@ if(mode==1) //-> use partial-diagonol alignment
 
 	return;
 	//---------- use block bound ------------//over
-
 
 /*
 	int radius=neib1;
@@ -382,7 +381,7 @@ void WriteSequenceAlignment(const char* output,
 	}
 	//----- output to file ------//
 	FILE *fp=fopen(output,"wb");
-	for(long i=0;i<tmp_rec.size();i++)fprintf(fp,"%s\n",tmp_rec[i].c_str());
+	for(long i=0;i<(long)tmp_rec.size();i++)fprintf(fp,"%s\n",tmp_rec[i].c_str());
 	fclose(fp);
 }
 
@@ -775,7 +774,7 @@ int main(int argc, char **argv)
 		EX_TRACE("CWT Analysis...\n");
 	}
 	
-	int npyr = opts.level;          // default: 3
+	long npyr = opts.level;          // default: 3
 	double scale0 = opts.scale0;	  // default: sqrt(2)
 	double dscale = 1;              // default: 1
 
