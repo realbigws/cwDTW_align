@@ -40,7 +40,7 @@ long g::proc::Ali2_To_AfpCor(long n1,long n2,vector <long> &ali2,
 	jj=-1;
 	long moln2=(long)ali2.size();
 	AFP_Cor.clear();
-	int afp_num=0;
+	long afp_num=0;
 	for(i=0;i<moln2;i++)
 	{
 		if(ali2[i]==-1) //purely blank
@@ -775,9 +775,6 @@ double g::proc::BoundDynamicTimeWarping(
 	}
 	
 	for(long i = 1; i < seq1->size(); i++){
-
-//printf("cur=%d\r",i);
-
 		for(long j = bound[i].first; j <= bound[i].second; j++){
 			double acc = std::min(std::min(SCORE(i-1, j, score, bound), SCORE(i, j-1, score, bound)), SCORE(i-1, j-1, score, bound));
 			if(acc == DBL_MAX){
