@@ -436,7 +436,7 @@ int main(int argc, char **argv)
 	opts.verbose = 0;       //-> [0] no verbose; 1 verbose
 	opts.test    = 0;       //-> [0] not use test mode; 1 equal_ave, 2 peak_ave, 3 Fast_DTW
 	opts.mode    = 0;       //-> [0] block bound; 1 diagonol bound
-	opts.kmer    = 1;       //-> [0] to use 5mer; 1 to use 6mer
+	opts.kmer    = 1;       //-> [1] to use 6mer; 0 to use 5mer
 	
 
 	//----- parse arguments -----//
